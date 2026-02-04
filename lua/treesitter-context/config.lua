@@ -5,6 +5,7 @@
 --- @field min_window_height integer
 --- @field line_numbers boolean
 --- @field multiline_threshold integer
+--- @field flatten_multiline boolean
 --- @field trim_scope 'outer'|'inner'
 --- @field zindex integer
 --- @field mode 'cursor'|'topline'
@@ -31,6 +32,9 @@
 --- Maximum number of lines to show for a single context
 --- @field multiline_threshold? integer
 ---
+--- Whether to flatten multiline nodes to a single line.
+--- @field flatten_multiline? boolean
+---
 --- Which context lines to discard if `max_lines` is exceeded.
 --- @field trim_scope? 'outer'|'inner'
 ---
@@ -54,6 +58,7 @@ local default_config = {
   min_window_height = 0,
   line_numbers = true,
   multiline_threshold = 20,
+  flatten_multiline = false,
   trim_scope = 'outer',
   zindex = 20,
   mode = 'cursor',

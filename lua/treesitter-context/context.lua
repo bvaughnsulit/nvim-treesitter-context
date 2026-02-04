@@ -205,12 +205,22 @@ local function get_text_for_range(range, bufnr)
   -- Strip any empty lines from the node
   while #lines > 0 do
     local last_line_of_node = lines[#lines]:sub(1, end_col)
-    if last_line_of_node:match('%S') and #lines <= config.multiline_threshold then
+    if
+      last_line_of_node:match('%S')
+      and (#lines <= config.multiline_threshold or config.flatten_multiline)
+    then
       break
     end
     lines[#lines] = nil
     end_col = -1
     end_row = end_row - 1
+  end
+
+  if config.flatten_multiline then
+    local first_line = table.remove(lines, 1)
+    lines = { first_line .. ' ' .. table.concat(vim.tbl_map(vim.trim, lines), ' ') }
+    end_col = -1
+    end_row = start_row
   end
 
   -- Adjust the end row to include the whole line. If we decide to clip
